@@ -41,7 +41,7 @@ jobs:
       - name: Start Minikube
         run: |
           minikube start
-          kubectl config use-context minikube
+          kubectl config use-context minikube  # Minikube context'ine geçiş yapıyoruz
 
       - name: Configure Kubernetes credentials
         run: |
