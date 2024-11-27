@@ -52,6 +52,6 @@ jobs:
 
       - name: Helm install or upgrade application
         run: |
-          helm upgrade --install my-app ./helm/my-app --set image.tag=$GITHUB_SHA
+          helm upgrade --install my-app ./helm/charts/my-app --set image.tag=$GITHUB_SHA
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
