@@ -1,17 +1,31 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # main branch'ına her push yapıldığında pipeline çalışacak
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Ubuntu üzerinde çalışacak
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2  # Repo'yu çek
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '18'  # Node.js sürümünü ayarla
 
       - name: Install dependencies
-        run: npm install
+        run: npm install  # Bağımlılıkları yükle (package.json ve Dockerfile aynı dizinde olduğu için working-directory kullanmaya gerek yok)
 
       - name: Run tests
-        run: npm test
+        run: npm test  # Testleri çalıştır
+
+      - name: Build Docker image
+        run: docker build -t batub16/devops-case-app:latest .  # Docker imajını oluştur
+
+      - name: Push Docker image
+        run: docker push batub16/devops-case-app:latest  # Docker imajını push et
