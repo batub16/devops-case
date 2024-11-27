@@ -1,10 +1,3 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,5 +12,6 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: package.json
 
+      - name: Run tests
+        run: npm test
