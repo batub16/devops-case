@@ -40,10 +40,15 @@ jobs:
 
       - name: Configure Kubernetes credentials
         run: |
-          kubectl config set-cluster my-cluster --server=https://<K8S_SERVER_URL> --certificate-authority=<CERT_PATH>
-          kubectl config set-credentials my-user --username=<K8S_USERNAME> --password=<K8S_PASSWORD>
+          kubectl config set-cluster my-cluster --server=$K8S_SERVER_URL --certificate-authority=$CERT_PATH
+          kubectl config set-credentials my-user --username=$K8S_USERNAME --password=$K8S_PASSWORD
           kubectl config set-context my-context --cluster=my-cluster --user=my-user --namespace=default
           kubectl config use-context my-context
+        env:
+          K8S_SERVER_URL: ${{ secrets.K8S_SERVER_URL }}
+          CERT_PATH: ${{ secrets.CERT_PATH }}
+          K8S_USERNAME: ${{ secrets.K8S_USERNAME }}
+          K8S_PASSWORD: ${{ secrets.K8S_PASSWORD }}
 
       - name: Helm install or upgrade application
         run: |
