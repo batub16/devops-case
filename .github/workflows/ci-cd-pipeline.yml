@@ -50,17 +50,3 @@ jobs:
           helm upgrade --install my-app ./helm/my-app --set image.tag=$GITHUB_SHA
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
-
-      - name: Notify Slack on successful deployment
-        if: success()
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"Deployment to Kubernetes was successful!"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Notify Slack on failure
-        if: failure()
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"Deployment to Kubernetes failed!"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
