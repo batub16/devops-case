@@ -47,8 +47,8 @@ jobs:
 
       - name: Apply Kubernetes manifests
         run: |
-          kubectl apply -f /nodejs-express-mysql-master/k8s/deployment.yaml
-          kubectl apply -f /nodejs-express-mysql-master/k8s/k8s/service.yaml
-          kubectl apply -f /nodejs-express-mysql-master/k8s/k8s/ingress.yaml
+          kubectl apply -f C:\Users\batuh\Desktop\nodejs-express-mysql-master\k8s\deployment.yaml
+          kubectl apply -f C:\Users\batuh\Desktop\nodejs-express-mysql-master\k8s\service.yaml
+          kubectl apply -f C:\Users\batuh\Desktop\nodejs-express-mysql-master\k8s\ingress.yaml
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
