@@ -62,12 +62,12 @@ Fullstack:
 
 > [React + Redux + Node.js Express + MySQL](https://www.bezkoder.com/react-redux-mysql-crud/)
 
-## Project setup
+## For Project setup
 ```
 npm install
 ```
 
-### Run
+### For Run
 ```
 node server.js
 ```
