@@ -38,6 +38,11 @@ jobs:
         with:
           version: 'v3.8.0'
 
+      - name: Start Minikube
+        run: |
+          minikube start
+          kubectl config use-context minikube
+
       - name: Configure Kubernetes credentials
         run: |
           kubectl config set-cluster my-cluster --server=$K8S_SERVER_URL --certificate-authority=$CERT_PATH
