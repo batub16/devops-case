@@ -1,0 +1,4 @@
+image:
+  tag: "production"
+database:
+  host: production-db.example.com

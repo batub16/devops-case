@@ -1,0 +1,22 @@
+image:
+  repository: batub16/devops-case-app 
+  tag: latest                         
+
+database:
+  host: mysql.default.svc.cluster.local  
+  user: root                            
+  password: example-password            
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+replicaCount: 2                        
+
+service:
+  type: ClusterIP                       
+  port: 80

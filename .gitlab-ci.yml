@@ -1,0 +1,18 @@
+stages:
+  - build
+  - deploy
+
+variables:
+  DOCKER_REGISTRY: "registry.example.com"
+  IMAGE_NAME: "$DOCKER_REGISTRY/your-app"
+
+build:
+  stage: build
+  script:
+    - docker build -t $IMAGE_NAME:$CI_COMMIT_SHA .
+    - docker push $IMAGE_NAME:$CI_COMMIT_SHA
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy işlemi bir sonraki adıma bırakıldı."

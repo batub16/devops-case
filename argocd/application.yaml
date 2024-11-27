@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nodejs-express-mysql-master
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/batub16/devops-case'  # GitHub repo URL
+    targetRevision: HEAD
+    path: 'k8s/manifests'  # GitHub repo içinde k8s klasörü, Kubernetes manifestlerinizi burada bulundurmalısınız
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default  # Kubernetes cluster'ındaki hedef namespace
+  syncPolicy:
+    automated:
+      prune: true   # Hedefte olmayan kaynakları siler
+      selfHeal: true  # Uygulama kaynakları hedefteki durumu ile uyumsuz olduğunda otomatik düzeltme yapar

@@ -1,0 +1,18 @@
+replicaCount: 2
+
+image:
+  repository: my-registry/my-app
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+    memory: "512Mi"
+    cpu: "500m"
+  requests:
+    memory: "256Mi"
+    cpu: "250m"

@@ -1,0 +1,4 @@
+image:
+  tag: "staging"
+database:
+  host: staging-db.example.com
