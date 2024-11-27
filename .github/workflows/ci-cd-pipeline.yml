@@ -36,31 +36,22 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v1
         with:
-          helm-version: 'v3.8.0'
+          version: 'v3.8.0'
 
       - name: Configure Kubernetes credentials
         run: |
-          kubectl config set-cluster my-cluster --server=https://<K8S_SERVER_URL> --certificate-authority=<CERT_PATH>
-          kubectl config set-credentials my-user --username=<K8S_USERNAME> --password=<K8S_PASSWORD>
+          kubectl config set-cluster my-cluster --server=$K8S_SERVER_URL --certificate-authority=$CERT_PATH
+          kubectl config set-credentials my-user --username=$K8S_USERNAME --password=$K8S_PASSWORD
           kubectl config set-context my-context --cluster=my-cluster --user=my-user --namespace=default
           kubectl config use-context my-context
+        env:
+          K8S_SERVER_URL: ${{ secrets.K8S_SERVER_URL }}
+          CERT_PATH: ${{ secrets.CERT_PATH }}
+          K8S_USERNAME: ${{ secrets.K8S_USERNAME }}
+          K8S_PASSWORD: ${{ secrets.K8S_PASSWORD }}
 
       - name: Helm install or upgrade application
         run: |
           helm upgrade --install my-app ./helm/my-app --set image.tag=$GITHUB_SHA
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
-
-      - name: Notify Slack on successful deployment
-        if: success()
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"Deployment to Kubernetes was successful!"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
-
-      - name: Notify Slack on failure
-        if: failure()
-        run: |
-          curl -X POST -H 'Content-type: application/json' \
-          --data '{"text":"Deployment to Kubernetes failed!"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
