@@ -1,74 +1,77 @@
-# Node.js Rest APIs with Express & MySQL example
+## CI/CD Pipeline
 
-For instruction, please visit:
-> [Build Node.js Rest APIs with Express & MySQL](https://www.bezkoder.com/node-js-rest-api-express-mysql/)
+This project uses a CI/CD pipeline configured with GitHub Actions to automate the build, test, and deployment process.
 
-Front-end that works well with this Back-end
-> [Axios Client](https://www.bezkoder.com/axios-request/)
+### Steps in the Pipeline:
+1. **Build**: The application is built using Node.js and its dependencies are installed.
+2. **Test**: (Skipped in this case, as no tests are defined yet).
+3. **Deploy**: The application is deployed to a Kubernetes cluster using Helm charts.
 
-> [Angular 8](https://www.bezkoder.com/angular-crud-app/) / [Angular 10](https://www.bezkoder.com/angular-10-crud-app/) / [Angular 11](https://www.bezkoder.com/angular-11-crud-app/) / [Angular 12](https://www.bezkoder.com/angular-12-crud-app/) / [Angular 13](https://www.bezkoder.com/angular-13-crud-example/) / [Angular 14](https://www.bezkoder.com/angular-14-crud-example/) / [Angular 15](https://www.bezkoder.com/angular-15-crud-example/) / [Angular 16 Client](https://www.bezkoder.com/angular-16-crud-example/) / [Angular 17 Client](https://www.bezkoder.com/angular-17-crud-example/)
 
-> [Vue 2 Client](https://www.bezkoder.com/vue-js-crud-app/) / [Vue 3 Client](https://www.bezkoder.com/vue-3-crud/) / [Vuetify Client](https://www.bezkoder.com/vuetify-data-table-example/)
+The pipeline is defined in the `.github/workflows/ci-cd-pipeline.yml` file.
 
-> [React Client](https://www.bezkoder.com/react-crud-web-api/) / [React Redux Client](https://www.bezkoder.com/react-redux-crud-example/)
+### How to Trigger the Pipeline:
+- **Push to main branch**: Automatically triggered on every push to the `main` branch.
+- **Manual Trigger**: You can manually trigger the pipeline from GitHub Actions UI.
 
-More Practice
-> [Build Node.js Rest APIs with Express, Sequelize & MySQL](https://www.bezkoder.com/node-js-express-sequelize-mysql/)
 
-> [Server side Pagination in Node.js with Sequelize and MySQL](https://www.bezkoder.com/node-js-sequelize-pagination-mysql/)
+## Helm Chart
 
-> [Node.js Express File Upload Rest API example](https://www.bezkoder.com/node-js-express-file-upload/)
+This project uses a Helm chart for Kubernetes deployment.
 
-> [Node.js Express File Upload with Google Cloud Storage example](https://www.bezkoder.com/google-cloud-storage-nodejs-upload-file/)
+### Helm Chart Files:
+- `Chart.yaml`: Contains metadata for the Helm chart.
+- `values.yaml`: Defines the default configuration values (e.g., Docker image tag, replicas, etc.).
+- `templates/`: Contains Kubernetes manifests such as `deployment.yaml`, `service.yaml`, and `ingress.yaml`.
 
-> [Node.js: Upload CSV file data into Database with Express](https://www.bezkoder.com/node-js-upload-csv-file-database/)
+### How to Install the Helm Chart:
+1. Ensure that Helm is installed.
+2. Add the repository (if needed).
+3. Install or upgrade the chart:
+   ```bash
+   helm upgrade --install my-app ./helm/my-app --set image.tag=latest
 
-> [Node.js: Upload Excel file data into Database with Express](https://www.bezkoder.com/node-js-upload-excel-file-database/)
 
-> [Deploying/Hosting Node.js app on Heroku with MySQL database](https://www.bezkoder.com/deploy-node-js-app-heroku-cleardb-mysql/)
+Helm documentation: https://helm.sh/docs/
+Kubernetes documentation: https://kubernetes.io/docs/
 
-Security:
-> [Node.js Express: JWT example | Token Based Authentication & Authorization](https://www.bezkoder.com/node-js-jwt-authentication-mysql/)
 
-Associations:
-> [Sequelize Associations: One-to-Many Relationship example](https://www.bezkoder.com/sequelize-associate-one-to-many/)
 
-> [Sequelize Associations: Many-to-Many Relationship example](https://www.bezkoder.com/sequelize-associate-many-to-many/)
+## Kubernetes and Helm Deployment
 
-Fullstack:
-> [Vue.js + Node.js + Express + MySQL example](https://www.bezkoder.com/vue-js-node-js-express-mysql-crud-example/)
+This project is a Node.js API application running on Kubernetes. The deployment is managed using **Helm**, a package manager for Kubernetes. The required Kubernetes resources are defined in the manifest files for both the application and the database.
 
-> [Vue.js + Node.js + Express + MongoDB example](https://www.bezkoder.com/vue-node-express-mongodb-mevn-crud/)
+### Steps to Deploy:
+1. **Set Up Kubernetes Cluster**
+2. **Deploy Using Helm**
+3. **Alternative: Deploy Using Kubectl**
 
-> [Angular 8 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-node-express-mysql/)
+---
 
-> [Angular 10 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-10-node-js-express-mysql/)
+### 1. **Setting Up the Kubernetes Cluster**
 
-> [Angular 11 + Node.js Express + MySQL example](https://www.bezkoder.com/angular-11-node-js-express-mysql/)
+Before running your application on Kubernetes, you need to have a **Kubernetes cluster** set up. Below are the setup instructions for some popular options:
 
-> [Angular 12 + Node.js Express + MySQL example](https://www.bezkoder.com/angular-12-node-js-express-mysql/)
+#### Minikube (Local Kubernetes Cluster):
 
-> [Angular 13 + Node.js Express + MySQL example](https://www.bezkoder.com/angular-13-node-js-express-mysql/)
+- **Minikube** allows you to run a Kubernetes cluster locally on your machine.
+- To set up Minikube, run the following command:
+  
+  ```bash
+  # Install and start Minikube
+  minikube start
 
-> [Angular 14 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-14-node-js-express-mysql/)
+  
+---
 
-> [Angular 15 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-15-node-js-express-mysql/)
+### **Explanation:**
 
-> [Angular 16 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-16-node-js-express-mysql/)
+1. **Kubernetes Cluster Setup**: Explains how to set up Kubernetes using either **Minikube** (local Kubernetes) or a managed service like **GKE**.
+2. **Helm Chart Explanation**: Describes the contents of a **Helm chart** and how it simplifies the deployment of Kubernetes resources. The **`Chart.yaml`**, **`values.yaml`**, and **`templates/`** folder are discussed.
+3. **Kubectl Deployment**: Provides an alternative for those who prefer to avoid Helm by using **kubectl** commands to deploy the application with manifest files.
+4. **Verification**: Offers commands to verify that the deployment is successful and how to check Kubernetes resources.
 
-> [Angular 17 + Node.js + Express + MySQL example](https://www.bezkoder.com/angular-17-node-js-express-mysql/)
+By including this information in your **README.md** file, you'll help others understand how to set up and deploy the application using either **Helm** or **kubectl**. This will make it easier for anyone reviewing or testing your project to follow the setup instructions.
 
-> [React + Node.js + Express + MySQL example](https://www.bezkoder.com/react-node-express-mysql/)
+If you need any further help or clarification, feel free to ask! 😊
 
-> [React + Redux + Node.js Express + MySQL](https://www.bezkoder.com/react-redux-mysql-crud/)
-
-## For Project setup
-```
-npm install
-```
-
-### For Run
-```
-node server.js
-```
-Batuhan Balın
