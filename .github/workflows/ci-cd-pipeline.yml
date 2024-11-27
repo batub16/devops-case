@@ -3,14 +3,14 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Master branch'ına yapılan push ile pipeline tetiklenir
+      - master  # Bu, master branch'ına yapılan push ile workflow tetiklenecek
   pull_request:
     branches:
-      - master  # Master branch'ına yapılan PR'lar için de pipeline çalışacak
+      - master  # Bu da master branch'ına yapılan pull request için geçerli
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # Bu job Ubuntu üzerinde çalışacak
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -22,16 +22,7 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: npm install  # package.json master branch'ında olduğu için bu işlem doğru çalışacak
+        run: npm install
 
       - name: Run tests
-        run: npm test  # Testleri çalıştır
-
-      - name: Build Docker image
-        run: docker build -t batub16/devops-case-app:latest .
-
-      - name: Push Docker image
-        run: docker push batub16/devops-case-app:latest
-
-      - name: Deploy to Kubernetes
-        run: kubectl apply -f k8s/
+        run: npm test
