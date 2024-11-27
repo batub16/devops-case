@@ -1,7 +1,16 @@
 apiVersion: v2
-name: nodejs-express-mysql-master
-version: 1.0.0
+name: my-app
+description: A simple application that runs a Node.js API.
+version: 0.1.0
+appVersion: "1.0.0"  # Uygulama versiyonu
+maintainers:
+  - name: Batuhan Balın
+    email: batuhanbalin@hotmail.com
+    url: https://github.com/batub16
 dependencies:
   - name: mysql
-    version: 8.0
+    version: "8.0.0"
     repository: https://charts.bitnami.com/bitnami
+    condition: mysql.enabled
+    tags:
+      - database
