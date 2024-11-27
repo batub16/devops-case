@@ -3,10 +3,8 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Bu, master branch'ına yapılan push ile workflow tetiklenecek
-  pull_request:
-    branches:
-      - master  # Bu da master branch'ına yapılan pull request için geçerli
+      - master
+  workflow_dispatch:  # Manuel başlatma desteği ekler
 
 jobs:
   build:
