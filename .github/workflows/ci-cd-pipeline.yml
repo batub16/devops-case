@@ -33,11 +33,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Helm
-        uses: azure/setup-helm@v1
-        with:
-          version: 'v3.8.0'
-
       - name: Configure Kubernetes credentials
         run: |
           kubectl config set-cluster my-cluster --server=$K8S_SERVER_URL --certificate-authority=$CERT_PATH
@@ -50,8 +45,10 @@ jobs:
           K8S_USERNAME: ${{ secrets.K8S_USERNAME }}
           K8S_PASSWORD: ${{ secrets.K8S_PASSWORD }}
 
-      - name: Helm install or upgrade application
+      - name: Apply Kubernetes manifests
         run: |
-          helm upgrade --install my-app ./helm/my-app --set image.tag=$GITHUB_SHA
+          kubectl apply -f k8s/manifests/deployment.yaml
+          kubectl apply -f k8s/manifests/service.yaml
+          kubectl apply -f k8s/manifests/ingress.yaml
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
