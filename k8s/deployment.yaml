@@ -1,20 +1,19 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: example-deployment
+  name: nodejs-api
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: example
+      app: nodejs-api
   template:
     metadata:
       labels:
-        app: example
+        app: nodejs-api
     spec:
       containers:
-      - name: example-container
-        image: nginx
-        ports:
-        - containerPort: 80
+        - name: nodejs-api
+          image: "your-docker-image:$GITHUB_SHA"
+          ports:
+            - containerPort: 8080
